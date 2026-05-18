@@ -1,0 +1,178 @@
+🚀 GUIA RÁPIDO DE INÍCIO - ELITE SISTEMA
+========================================
+
+1️⃣ PREPARAÇÃO INICIAL
+====================
+✓ Certifique-se que XAMPP está instalado
+✓ Abra o painel de controle do XAMPP
+✓ Clique em "Start" para Apache e MySQL
+
+
+2️⃣ ACESSAR O SISTEMA
+====================
+Abra seu navegador e vá para:
+→ http://localhost/elite_sistema/
+
+
+3️⃣ PRIMEIRA EXECUÇÃO
+====================
+Se aparecer uma página de setup:
+✓ Clique em "Setup" ou acesse: /banco/setup.php
+✓ O banco de dados será criado automaticamente
+✓ Você verá: "✅ Sistema configurado com sucesso!"
+
+
+4️⃣ FAZER LOGIN
+==============
+Use as credenciais demo:
+   Email:  admin@elite.com
+   Senha:  123456
+
+
+5️⃣ EXPLORAR FUNCIONALIDADES
+============================
+
+A) DASHBOARD
+   • Veja estatísticas gerais do sistema
+   • Total de produtos, vendas, estoque
+   • Últimas leituras de código
+
+B) LEITOR DE CÓDIGO (⭐ PRINCIPAL)
+   • Vá para "Leitor de Código"
+   • Digite ou escaneie um código de barras
+   • Exemplo: 7891234567890
+   • Pressione Enter
+   • O produto apareça instantaneamente com nome e preço!
+
+C) PRODUTOS
+   • Clique em "Produtos"
+   • Visualize todos os produtos cadastrados
+   • Use "Editar" ou "Deletar"
+
+D) NOVO PRODUTO
+   • Clique em "Novo Produto"
+   • Preencha os campos:
+     - Código de Barras (único)
+     - Nome
+     - Categoria
+     - Preço
+     - Estoque
+     - Tamanho, Cor, Marca (opcionais)
+   • Clique "Salvar Produto"
+
+
+6️⃣ CÓDIGOS PARA TESTAR
+======================
+Cole um destes códigos no Leitor:
+
+7891234567890 → Camisa Flamengo 2024 (R$ 189,90)
+7891234567891 → Camisa Palmeiras 2024 (R$ 189,90)
+7891234567892 → Camiseta Básica Branca (R$ 29,90)
+7891234567893 → Camiseta Básica Preta (R$ 29,90)
+7891234567894 → Calça Jeans Azul (R$ 89,90)
+7891234567895 → Boné Ajustável (R$ 39,90)
+
+
+7️⃣ RECURSOS IMPORTANTES
+=======================
+
+📊 DASHBOARD
+   Mostra em tempo real:
+   • Número de produtos
+   • Número de vendas
+   • Valor total de vendas
+   • Unidades em estoque
+   • Leituras recentes
+
+🔍 LEITOR DE CÓDIGO DE BARRAS (DESTAQUE!)
+   ✓ Digite ou escaneie o código
+   ✓ Pressione Enter
+   ✓ Produto aparece automaticamente com:
+     - Nome
+     - Preço
+     - Categoria
+     - Estoque
+     - Tamanho e Cor
+   ✓ Histórico de leituras salvo
+
+📦 GERENCIAMENTO DE PRODUTOS
+   ✓ Criar novos produtos
+   ✓ Editar produtos existentes
+   ✓ Deletar/desativar produtos
+   ✓ Filtrar por categoria
+
+🔐 AUTENTICAÇÃO
+   ✓ Login seguro
+   ✓ Registro de novos usuários
+   ✓ Gerenciamento de sessão
+   ✓ Logout
+
+
+8️⃣ DÚVIDAS FREQUENTES
+=====================
+
+P: Como gerar um código de barras?
+R: Use sites como https://barcode.tec-it.com/
+   Gere em formato EAN-13 (13 dígitos)
+
+P: O código deve ser único?
+R: SIM! Cada produto deve ter um código diferente
+
+P: Posso usar um scanner de código?
+R: SIM! Qualquer scanner que lance o código em um campo funciona
+
+P: Como editar um produto?
+R: Vá em Produtos → Clique em "Editar" → Modifique → Salve
+
+P: Como deletar um produto?
+R: Vá em Produtos → Clique em "Deletar" → Confirme
+
+P: Onde fico vendo o histórico?
+R: Dashboard → Últimas Leituras
+   ou Leitor de Código → Histórico de Leituras
+
+P: Quanto custa?
+R: É um sistema gratuito de demonstração!
+
+
+9️⃣ PERSONALIZAÇÕES (AVANÇADO)
+=============================
+
+Alterar cores:
+→ Edite: css/style.css
+→ Procure por: :root { --cor-primaria: #1e40af; }
+
+Adicionar novas categorias:
+→ No painel, crie um novo produto
+→ Você verá as categorias disponíveis
+→ Ou acesse phpMyAdmin para adicionar diretamente
+
+Modificar usuário demo:
+→ Vá em phpMyAdmin
+→ Banco: elite_sistema
+→ Tabela: usuarios
+→ Edite admin@elite.com
+
+
+🔟 TUDO PRONTO!
+==============
+Você está pronto para usar o Elite Sistema!
+
+Próximas ações:
+✓ Explore o dashboard
+✓ Teste o leitor de código
+✓ Cadastre seus próprios produtos
+✓ Customizações conforme necessário
+
+Dúvidas?
+→ Veja README.md ou INSTRUÇÕES.md
+
+
+═══════════════════════════════════════════
+   🎉 Bem-vindo ao Elite Sistema! 🎉
+═══════════════════════════════════════════
+
+Desenvolvido para gerenciamento profissional de lojas de roupas.
+
+Versão: 1.0
+Status: Pronto para usar
