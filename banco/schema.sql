@@ -112,15 +112,16 @@ CREATE TABLE fiados (
     valor DECIMAL(12,2) NOT NULL,
     data_vencimento DATE DEFAULT NULL,
     descricao TEXT,
+    usuario_id INT DEFAULT NULL,
     interagiu_whatsapp BOOLEAN DEFAULT FALSE,
     status ENUM('pendente','pago') DEFAULT 'pendente',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO fiados (nome, telefone, valor, data_vencimento, descricao, interagiu_whatsapp, status) VALUES
-('João Silva', '(11) 99999-0000', 150.00, '2026-05-10', 'Venda no crediário', FALSE, 'pendente'),
-('Maria Souza', '(21) 98888-1111', 320.50, '2026-05-15', 'Pagamento parcelado', TRUE, 'pendente'),
-('Carlos Pereira', '(31) 97777-2222', 0.00, '2026-04-20', 'Dívida quitada', FALSE, 'pago');
+INSERT INTO fiados (nome, telefone, valor, data_vencimento, descricao, usuario_id, interagiu_whatsapp, status) VALUES
+('João Silva', '(11) 99999-0000', 150.00, '2026-05-10', 'Venda no crediário', 1, FALSE, 'pendente'),
+('Maria Souza', '(21) 98888-1111', 320.50, '2026-05-15', 'Pagamento parcelado', 1, TRUE, 'pendente'),
+('Carlos Pereira', '(31) 97777-2222', 0.00, '2026-04-20', 'Dívida quitada', 1, FALSE, 'pago');
 
 -- Índices para melhor performance
 CREATE INDEX idx_codigo_barras ON produtos(codigo_barras);

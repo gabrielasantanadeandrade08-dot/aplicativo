@@ -17,6 +17,9 @@ switch ($acao) {
     case 'marcar_whatsapp':
         marcar_whatsapp();
         break;
+    case 'deletar':
+        deletar_fiado();
+        break;
     default:
         json_response('erro', 'Ação não especificada');
 }
@@ -24,7 +27,8 @@ switch ($acao) {
 function listar_fiados() {
     global $conexao;
 
-    $query = "SELECT * FROM fiados ORDER BY status = 'pendente' DESC, valor DESC, nome ASC";
+    $usuario_id = isset($_SESSION['usuario_id']) ? (int)$_SESSION['usuario_id'] : 0;
+    $query = "SELECT * FROM fiados WHERE usuario_id = $usuario_id ORDER BY status = 'pendente' DESC, valor DESC, nome ASC";
     $resultado = $conexao->query($query);
 
     $fiados = [];
@@ -48,6 +52,7 @@ function criar_fiado() {
     $data_vencimento = isset($_POST['data_vencimento']) ? escapar($_POST['data_vencimento']) : null;
     $descricao = isset($_POST['descricao']) ? escapar($_POST['descricao']) : '';
     $interagiu_whatsapp = isset($_POST['interagiu_whatsapp']) ? (int)$_POST['interagiu_whatsapp'] : 0;
+    $usuario_id = isset($_SESSION['usuario_id']) ? (int)$_SESSION['usuario_id'] : 0;
 
     if (empty($nome) || $valor <= 0) {
         json_response('erro', 'Nome e valor são obrigatórios');
@@ -59,7 +64,7 @@ function criar_fiado() {
 
     $data_vencimento_sql = $data_vencimento ? "'$data_vencimento'" : 'NULL';
 
-    $query = "INSERT INTO fiados (nome, telefone, valor, data_vencimento, descricao, interagiu_whatsapp, status) VALUES ('$nome', '$telefone', $valor, $data_vencimento_sql, '$descricao', $interagiu_whatsapp, 'pendente')";
+    $query = "INSERT INTO fiados (nome, telefone, valor, data_vencimento, descricao, usuario_id, interagiu_whatsapp, status) VALUES ('$nome', '$telefone', $valor, $data_vencimento_sql, '$descricao', $usuario_id, $interagiu_whatsapp, 'pendente')";
 
     if ($conexao->query($query)) {
         json_response('sucesso', 'Fiado adicionado com sucesso', ['id' => $conexao->insert_id]);
@@ -81,6 +86,22 @@ function marcar_whatsapp() {
         json_response('sucesso', 'Fiado marcado como contatado via WhatsApp');
     } else {
         json_response('erro', 'Erro ao atualizar: ' . $conexao->error);
+    }
+}
+
+function deletar_fiado() {
+    global $conexao;
+
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    if ($id <= 0) {
+        json_response('erro', 'ID inválido');
+    }
+
+    $query = "DELETE FROM fiados WHERE id = $id";
+    if ($conexao->query($query)) {
+        json_response('sucesso', 'Fiado removido com sucesso');
+    } else {
+        json_response('erro', 'Erro ao remover fiado: ' . $conexao->error);
     }
 }
 ?>

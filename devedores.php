@@ -3,8 +3,9 @@ require_once 'banco/config.php';
 verificar_login();
 
 $usuario_nome = $_SESSION['usuario_nome'];
+$usuario_id = $_SESSION['usuario_id'];
 
-$query = "SELECT * FROM fiados ORDER BY status = 'pendente' DESC, valor DESC, nome ASC";
+$query = "SELECT * FROM fiados WHERE usuario_id = $usuario_id ORDER BY status = 'pendente' DESC, valor DESC, nome ASC";
 $resultado = $conexao->query($query);
 ?>
 <!DOCTYPE html>
@@ -32,9 +33,9 @@ $resultado = $conexao->query($query);
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h1 class="card-title">🧾 Fiados</h1>
+                <h1 class="card-title">🧾 Meus Fiados</h1>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="api/exportar.php?tipo=fiados" class="btn btn-secondary">📥 Exportar Fiados</a>
+                    <a href="api/exportar.php?tipo=fiados" class="btn btn-secondary">📥 Exportar Meus Fiados</a>
                 </div>
             </div>
 
@@ -67,7 +68,7 @@ $resultado = $conexao->query($query);
             </form>
 
             <p style="color: #64748b; margin-bottom: 1.5rem;">
-                Aqui estão os fiados do sistema. Exporte para Excel quando precisar.
+                Aqui estão somente os fiados que você cadastrou. A lista não inclui fiados de outros usuários.
             </p>
 
             <table class="table">
@@ -81,40 +82,40 @@ $resultado = $conexao->query($query);
                         <th>Descrição</th>
                         <th>Status</th>
                         <th>WhatsApp</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     if ($resultado->num_rows > 0) {
-                                                while ($devedor = $resultado->fetch_assoc()) {
-                                                        $valor = number_format($devedor['valor'], 2, ',', '.');
-                                                        $vencimento = $devedor['data_vencimento'] ? date('d/m/Y', strtotime($devedor['data_vencimento'])) : 'N/A';
-                                                        $status = ucfirst($devedor['status']);
+                        while ($devedor = $resultado->fetch_assoc()) {
+                            $valor = number_format($devedor['valor'], 2, ',', '.');
+                            $vencimento = $devedor['data_vencimento'] ? date('d/m/Y', strtotime($devedor['data_vencimento'])) : 'N/A';
+                            $status = ucfirst($devedor['status']);
 
-                                                        $tel_js = addslashes($devedor['telefone']);
-                                                        $nome_js = addslashes($devedor['nome']);
-                                                        $valor_raw = $devedor['valor'];
-                                                        $data_fiado = addslashes($vencimento);
+                            $tel_js = addslashes($devedor['telefone']);
+                            $nome_js = addslashes($devedor['nome']);
+                            $valor_raw = $devedor['valor'];
+                            $data_fiado = addslashes($vencimento);
 
-                                                        echo "<tr>
-                                                                        <td>{$devedor['id']}</td>
-                                                                        <td>{$devedor['nome']}</td>
-                                                                        <td>" . ($devedor['telefone'] ?: 'N/A') . "</td>
-                                                                        <td>R$ {$valor}</td>
-                                                                        <td>{$vencimento}</td>
-                                                                        <td>" . (!empty($devedor['descricao']) ? htmlspecialchars($devedor['descricao']) : 'N/A') . "</td>
-                                                                        <td>{$status}</td>
-                                                                        <td><button class=\"btn btn-secondary\" onclick=\"cobrarNoWhatsApp('{$tel_js}', '{$nome_js}', '{$valor_raw}', '{$data_fiado}')\">Cobrar no WhatsApp</button></td>
-                                                                    </tr>";
-                                                }
+                            echo "<tr>
+                                        <td>{$devedor['id']}</td>
+                                        <td>{$devedor['nome']}</td>
+                                        <td>" . ($devedor['telefone'] ?: 'N/A') . "</td>
+                                        <td>R$ {$valor}</td>
+                                        <td>{$vencimento}</td>
+                                        <td>" . (!empty($devedor['descricao']) ? htmlspecialchars($devedor['descricao']) : 'N/A') . "</td>
+                                        <td>{$status}</td>
+                                        <td><button class=\"btn btn-secondary\" onclick=\"cobrarNoWhatsApp('{$tel_js}', '{$nome_js}', '{$valor_raw}', '{$data_fiado}')\">Cobrar no WhatsApp</button></td>
+                                        <td><button class=\"btn btn-erro\" onclick=\"deletarDevedor({$devedor['id']})\">Remover</button></td>
+                                    </tr>";
+                        }
                     } else {
-                        echo "<tr><td colspan='8' style='text-align: center; color: #64748b;'>Nenhum fiado cadastrado ainda</td></tr>";
+                        echo "<tr><td colspan='9' style='text-align: center; color: #64748b;'>Nenhum fiado cadastrado por você ainda</td></tr>";
                     }
                     ?>
                 </tbody>
             </table>
-        </div>
-    </div>
 
     <script src="js/app.js"></script>
 </body>

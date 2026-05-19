@@ -286,6 +286,26 @@ async function salvarDevedor(event) {
     }
 }
 
+async function deletarDevedor(id) {
+    if (!confirm('Tem certeza que deseja remover este fiado?')) {
+        return;
+    }
+
+    const resultado = await fazerRequisicao('devedores.php', {
+        acao: 'deletar',
+        id: id
+    });
+
+    if (resultado.status === 'sucesso') {
+        mostrarAlerta('sucesso', resultado.mensagem);
+        setTimeout(() => {
+            window.location.reload();
+        }, 1200);
+    } else {
+        mostrarAlerta('erro', resultado.mensagem);
+    }
+}
+
 async function listarProdutos() {
     const resultado = await fazerRequisicao('produtos.php?acao=listar', {}, 'GET');
     

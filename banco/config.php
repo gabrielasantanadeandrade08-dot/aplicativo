@@ -35,6 +35,7 @@ function criar_tabela_fiados_se_nao_existe() {
         valor DECIMAL(12,2) NOT NULL,
         data_vencimento DATE DEFAULT NULL,
         descricao TEXT,
+        usuario_id INT DEFAULT NULL,
         interagiu_whatsapp BOOLEAN DEFAULT FALSE,
         status ENUM('pendente','pago','atrasado') DEFAULT 'pendente',
         data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -43,6 +44,7 @@ function criar_tabela_fiados_se_nao_existe() {
     $conexao->query($query);
     $conexao->query("ALTER TABLE fiados MODIFY status ENUM('pendente','pago','atrasado') DEFAULT 'pendente'");
     $conexao->query("ALTER TABLE fiados ADD COLUMN IF NOT EXISTS interagiu_whatsapp BOOLEAN DEFAULT FALSE");
+    $conexao->query("ALTER TABLE fiados ADD COLUMN IF NOT EXISTS usuario_id INT DEFAULT NULL");
 }
 
 // Constantes da aplicação
