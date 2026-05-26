@@ -175,9 +175,14 @@ UPDATE usuarios SET nome = 'Seu Nome', email = 'seu@email.com' WHERE id = 1;
 1. Use um dos códigos de teste listados acima
 2. Ou cadastre um novo produto
 
+
 ## 📚 Documentação Completa
 
 Veja o arquivo **README.md** na pasta do projeto para documentação detalhada.
+
+---
+
+**Versão:** 2.8.9
 
 ## 🎯 Próximos Passos (Opcional)
 

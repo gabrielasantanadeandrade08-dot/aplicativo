@@ -174,5 +174,5 @@ Dúvidas?
 
 Desenvolvido para gerenciamento profissional de lojas de roupas.
 
-Versão: 1.0
+Versão: 2.8.9
 Status: Pronto para usar

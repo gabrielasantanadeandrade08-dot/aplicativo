@@ -181,7 +181,7 @@ elite_sistema/
 
 Desenvolvido com ❤️ para gerenciamento eficiente de lojas de roupas.
 
-Versão: 1.0
+Versão: 2.8.9
 Status: Ativo e funcional
 Data: 2024
 

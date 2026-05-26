@@ -12,7 +12,8 @@ Um sistema completo e profissional para gerenciamento de loja de roupas com supo
 - **📦 Gerenciamento de Produtos** - CRUD completo com categorias
 - **🔍 Leitor de Código de Barras** - Busca automática de produtos
 - **📊 Dashboard Profissional** - Estatísticas e relatórios em tempo real
-- **📈 Controle de Estoque** - Acompanhe quantidades disponíveis
+- **� Importação de Devedores** - CSV para cadastro rápido de fiados
+- **�📈 Controle de Estoque** - Acompanhe quantidades disponíveis
 - **💾 Banco de Dados** - MySQL com schema otimizado
 - **🎨 Design Responsivo** - Interface moderna e intuitiva
 
@@ -35,11 +36,13 @@ elite_sistema/
 ├── novo-produto.php             # Formulário novo produto
 ├── editar-produto.php           # Formulário editar produto
 ├── painel-leitor.php            # Painel de leitura de código
+├── importar-devedores.php       # Importação de devedores via CSV
 ├── logout.php                   # Sair do sistema
 │
 ├── api/
 │   ├── auth.php                 # API de autenticação
-│   └── produtos.php             # API de gerenciamento de produtos
+│   ├── produtos.php             # API de gerenciamento de produtos
+│   └── importar_devedores.php   # API de importação de devedores
 │
 ├── banco/
 │   ├── config.php               # Configuração e conexão com BD
@@ -231,6 +234,6 @@ Desenvolvido com ❤️ para gerenciamento eficiente de lojas de roupas.
 
 ---
 
-**Versão:** 1.0  
+**Versão:** 2.8.9  
 **Data:** 2026  
 **Status:** Ativo e em desenvolvimento

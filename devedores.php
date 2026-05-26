@@ -7,6 +7,16 @@ $usuario_id = $_SESSION['usuario_id'];
 
 $query = "SELECT * FROM fiados WHERE usuario_id = $usuario_id ORDER BY status = 'pendente' DESC, valor DESC, nome ASC";
 $resultado = $conexao->query($query);
+
+// Soma dos fiados do usuário
+$query_soma_fiados = "SELECT SUM(valor) as total_fiados FROM fiados WHERE usuario_id = $usuario_id";
+$resultado_soma_fiados = $conexao->query($query_soma_fiados);
+$total_fiados = $resultado_soma_fiados->fetch_assoc()['total_fiados'] ?? 0;
+
+// Soma das vendas do usuário
+$query_soma_vendas = "SELECT SUM(total) as total_vendas FROM vendas WHERE usuario_id = $usuario_id";
+$resultado_soma_vendas = $conexao->query($query_soma_vendas);
+$total_vendas = $resultado_soma_vendas->fetch_assoc()['total_vendas'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -31,15 +41,16 @@ $resultado = $conexao->query($query);
     </nav>
 
     <div class="container">
+        <div style="margin-bottom:1.5rem; color:#0f766e; font-size:1.1rem;">
+            <strong>💸 Soma dos Fiados:</strong> R$ <?php echo number_format((float)$total_fiados, 2, ',', '.'); ?><br>
+            <strong>🛒 Soma das Vendas:</strong> R$ <?php echo number_format((float)$total_vendas, 2, ',', '.'); ?>
+        </div>
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">🧾 Meus Fiados</h1>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="api/exportar.php?tipo=fiados" class="btn btn-secondary">📥 Exportar Meus Fiados</a>
-                </div>
-            </div>
-
-            <form onsubmit="salvarDevedor(event)" class="card-body" style="margin-bottom: 2rem; display: grid; gap: 1rem;">
+                        <a href="importar-devedores.php" class="btn btn-primary">📤 Importar Devedores</a>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
                     <div class="form-group">
                         <label for="nome_devedor">Nome *</label>

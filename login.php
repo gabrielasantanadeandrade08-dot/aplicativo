@@ -50,5 +50,10 @@ if (isset($_SESSION['usuario_id'])) {
     </div>
     
     <script src="js/app.js"></script>
+
+    <footer style="margin-top:2rem; text-align:center; color:#64748b; font-size:0.95rem;">
+        Elite Sistema &copy; <?php echo date('Y'); ?> &mdash; Versão 2.8.9<br>
+        Dúvidas ou suporte? Fale no WhatsApp: <a href="https://wa.me/5599999999999" style="color:#0f766e;text-decoration:underline;">(99) 99999-9999</a>
+    </footer>
 </body>
 </html>

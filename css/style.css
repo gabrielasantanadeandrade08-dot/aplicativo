@@ -1,16 +1,18 @@
 /* Elite Sistema - Estilos Principais */
 /* ==================================== */
 
+
 :root {
-    --cor-primaria: #1e40af;
+    --cor-primaria:   #1e40af;
     --cor-secundaria: #0f766e;
-    --cor-sucesso: #22c55e;
-    --cor-aviso: #f59e0b;
-    --cor-erro: #ef4444;
-    --cor-fundo: #f8fafc;
-    --cor-texto: #1e293b;
-    --cor-bordas: #e2e8f0;
-    --sombra: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --cor-sucesso:    #22c55e;
+    --cor-aviso:      #f59e0b;
+    --cor-erro:       #ef4444;
+    --cor-fundo:      #f8fafc;
+    --cor-texto:      #1e293b;
+    --cor-bordas:     #e2e8f0;
+    --cor-surface:    #ffffff;
+    --sombra:         0 16px 45px rgba(15,23,42,0.08);
 }
 
 * {
@@ -19,11 +21,19 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--cor-fundo);
+    background:
+        radial-gradient(circle at top left,    rgba(59,130,246,0.15), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,0.12), transparent 20%),
+        var(--cor-fundo);
     color: var(--cor-texto);
-    line-height: 1.6;
+    line-height: 1.7;
+    min-height: 100vh;
 }
 
 /* NAVBAR */
@@ -41,26 +51,29 @@ body {
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
+    font-size: 1.45rem;
+    font-weight: 700;
     color: white;
 }
 
 .navbar-menu {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .navbar-menu a {
     color: white;
     text-decoration: none;
-    transition: opacity 0.3s, transform 0.3s;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    transition: transform 0.3s, background-color 0.3s, opacity 0.3s;
 }
 
 .navbar-menu a:hover {
-    opacity: 0.9;
+    opacity: 0.95;
+    background-color: rgba(255, 255, 255, 0.12);
     transform: translateY(-1px);
 }
 
@@ -69,8 +82,8 @@ body {
     align-items: center;
     gap: 0.5rem;
     color: white;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 0.8rem;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.55rem 0.95rem;
     border-radius: 999px;
     font-size: 0.95rem;
 }
@@ -91,19 +104,30 @@ body {
 
 /* CONTAINER */
 .container {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
 }
 
 /* CARDS */
 .card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 1rem;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 1.25rem;
+    box-shadow: var(--sombra);
     padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.75rem;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+    gap: 1rem;
+    padding-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .card-header {
@@ -161,16 +185,21 @@ body {
 .btn {
     padding: 0.85rem 1.7rem;
     border: 1px solid transparent;
-    border-radius: 0.75rem;
+    border-radius: 999px;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.12);
 }
 
 .btn-primary {
@@ -262,11 +291,15 @@ body {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
 }
 
 .table thead {
-    background-color: #f1f5f9;
-    border-bottom: 2px solid rgba(226, 232, 240, 0.9);
+    background: linear-gradient(90deg, rgba(30, 64, 175, 0.08), rgba(15, 23, 42, 0.03));
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .table th {
@@ -290,6 +323,17 @@ body {
 
 .table tbody tr:hover {
     background-color: #e2e8f0;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 1rem;
 }
 
 .table-acoes {
@@ -572,11 +616,23 @@ body {
     .navbar {
         flex-direction: column;
         gap: 1rem;
+        align-items: stretch;
     }
     
     .navbar-menu {
         flex-wrap: wrap;
         justify-content: center;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .card-header .btn,
+    .card-header .btn-secondary,
+    .card-header .btn-primary {
+        width: 100%;
     }
     
     .grid {

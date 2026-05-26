@@ -1,6 +1,12 @@
 <?php
+
 require_once 'banco/config.php';
 verificar_login();
+// Proteção extra: se sessão expirar, redireciona
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
 // Obter estatísticas
 $usuario_id = $_SESSION['usuario_id'];
@@ -66,9 +72,9 @@ $total_vencendo = $resultado_vencendo->fetch_assoc()['total'] ?? 0;
             <a href="produtos.php">Produtos</a>
             <a href="devedores.php">Fiados</a>
             <a href="painel-leitor.php">Leitor de Código</a>
-            <a href="atualizacao.php">Atualização</a>
+            <!-- <a href="atualizacao.php">Atualização</a> -->
             <span><?php echo $usuario_nome; ?></span>
-            <a href="banco/config.php?logout=1" class="btn-sair">Sair</a>
+            <a href="#" onclick="return confirmarSaida();" class="btn-sair">Sair</a>
         </div>
     </nav>
 
@@ -76,16 +82,22 @@ $total_vencendo = $resultado_vencendo->fetch_assoc()['total'] ?? 0;
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">📊 Dashboard</h1>
-                <div style="display: flex; gap: 1rem;">
-                    <a href="api/exportar.php?tipo=produtos" class="btn btn-secondary" title="Exportar Produtos">📥 Produtos</a>
-                    <a href="api/exportar.php?tipo=vendas" class="btn btn-secondary" title="Exportar Vendas">📥 Vendas</a>
-                    <a href="api/exportar.php?tipo=leituras" class="btn btn-secondary" title="Exportar Leituras">📥 Leituras</a>
-                    <a href="api/exportar.php?tipo=fiados" class="btn btn-secondary" title="Exportar Fiados">📥 Fiados</a>
-                </div>
-            </div>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="api/exportar.php?tipo=produtos" class="btn btn-secondary" title="Exportar Produtos">📥 Produtos</a>
+                        <a href="api/exportar.php?tipo=vendas" class="btn btn-secondary" title="Exportar Vendas">📥 Vendas</a>
+                        <a href="api/exportar.php?tipo=leituras" class="btn btn-secondary" title="Exportar Leituras">📥 Leituras</a>
+                        <a href="api/exportar.php?tipo=fiados" class="btn btn-secondary" title="Exportar Fiados">📥 Fiados</a>
+                        <a href="importar-devedores.php" class="btn btn-primary" title="Importar Devedores">📤 Importar Devedores</a>
             
             <p style="margin-bottom: 2rem; color: #64748b;">
-                Bem-vindo, <strong><?php echo $usuario_nome; ?></strong>! 👋
+                <?php
+                $hora = (int)date('H');
+                $saudacao = 'Bem-vindo';
+                if ($hora >= 6 && $hora < 12) $saudacao = 'Bom dia';
+                elseif ($hora >= 12 && $hora < 18) $saudacao = 'Boa tarde';
+                elseif ($hora >= 18) $saudacao = 'Boa noite';
+                ?>
+                <?php echo $saudacao; ?>, <strong><?php echo $usuario_nome; ?></strong>! 👋
             </p>
             
             <!-- CARDS DE ESTATÍSTICAS -->
@@ -102,7 +114,7 @@ $total_vencendo = $resultado_vencendo->fetch_assoc()['total'] ?? 0;
                 
                 <div class="stat-card aviso">
                     <div class="stat-label">📊 Valor em Vendas</div>
-                    <div class="stat-valor">R$ <?php echo number_format($valor_vendas, 2, ',', '.'); ?></div>
+                    <div class="stat-valor">R$ <?php echo number_format((float)$valor_vendas, 2, ',', '.'); ?></div>
                 </div>
                 
                 <div class="stat-card primaria">
@@ -127,7 +139,7 @@ $total_vencendo = $resultado_vencendo->fetch_assoc()['total'] ?? 0;
 
                 <div class="stat-card aviso">
                     <div class="stat-label">💸 Total em Fiados</div>
-                    <div class="stat-valor">R$ <?php echo number_format($valor_devedores, 2, ',', '.'); ?></div>
+                    <div class="stat-valor">R$ <?php echo number_format((float)$valor_devedores, 2, ',', '.'); ?></div>
                 </div>
 
                 <div class="stat-card erro">
@@ -249,5 +261,17 @@ $total_vencendo = $resultado_vencendo->fetch_assoc()['total'] ?? 0;
     </div>
 
     <script src="js/app.js"></script>
+    <script>
+    function confirmarSaida() {
+        if (confirm('Deseja realmente sair do sistema?')) {
+            window.location.href = 'banco/config.php?logout=1';
+        }
+        return false;
+    }
+    </script>
+
+    <footer style="margin-top:2rem; text-align:center; color:#64748b; font-size:0.95rem;">
+        Elite Sistema &copy; <?php echo date('Y'); ?> &mdash; Versão 2.8.9
+    </footer>
 </body>
 </html>

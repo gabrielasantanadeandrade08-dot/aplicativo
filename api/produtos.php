@@ -121,6 +121,37 @@ function criar_produto() {
     
     if ($conexao->query($query)) {
         $novo_id = $conexao->insert_id;
+
+        // Notificação por e-mail
+        $destinatario = 'messiasmdesa463@gmail.com'; // E-mail definido pelo usuário
+        $assunto = 'Novo produto cadastrado';
+        $mensagem = "Um novo produto foi cadastrado:\n\n" .
+            "Nome: $nome\n" .
+            "Código de Barras: $codigo_barras\n" .
+            "Preço: R$ $preco\n" .
+            "Estoque: $estoque\n" .
+            "Tamanho: $tamanho\n" .
+            "Cor: $cor\n" .
+            "Marca: $marca\n" .
+            "Descrição: $descricao\n";
+        $headers = "From: notifica@elite.com\r\n" .
+                   "Content-Type: text/plain; charset=utf-8";
+        @mail($destinatario, $assunto, $mensagem, $headers);
+
+        // Exemplo de integração WhatsApp (Z-API, UltraMsg, Twilio, etc)
+        // $whatsapp_api_url = 'https://api.z-api.io/instances/SEU_INSTANCE/token/SEU_TOKEN/send-text';
+        // $payload = [
+        //     'phone' => 'SEU_NUMERO',
+        //     'message' => "Novo produto cadastrado: $nome, código: $codigo_barras, preço: R$ $preco"
+        // ];
+        // $ch = curl_init($whatsapp_api_url);
+        // curl_setopt($ch, CURLOPT_POST, 1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // $result = curl_exec($ch);
+        // curl_close($ch);
+
         json_response('sucesso', 'Produto criado com sucesso', ['id' => $novo_id]);
     } else {
         json_response('erro', 'Erro ao criar produto: ' . $conexao->error);
