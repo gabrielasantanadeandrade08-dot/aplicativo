@@ -228,7 +228,7 @@ Para dúvidas ou problemas:
 
 Este projeto é fornecido como está para uso pessoal e comercial.
 
-## ✍️ Autor
+## ✍️ Autor messias moreira de sa
 
 Desenvolvido com ❤️ para gerenciamento eficiente de lojas de roupas.
 
