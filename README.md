@@ -231,9 +231,10 @@ Este projeto é fornecido como está para uso pessoal e comercial.
 ## ✍️ Autor messias moreira de sa
 
 Desenvolvido com ❤️ para gerenciamento eficiente de lojas de roupas.
+para qualquer tipo de sistema 
 
 ---
 
 **Versão:** 2.8.9  
 **Data:** 2026  
-**Status:** Ativo e em desenvolvimento
+**Status:** Ativo
